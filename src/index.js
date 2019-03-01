@@ -10,3 +10,13 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+
+/* 명세
+
+
+
+/////// DATA.json ///////
+메모들을 저장하고 관리할 공간이 필요한듯
+
+*/
