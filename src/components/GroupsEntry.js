@@ -9,7 +9,7 @@ class GroupsEntry extends React.Component {
 
         return (
             <div style={{cursor: "pointer", margin: 2, color: "#555", fontSize: 14}}
-            className="font-weight-bold"
+            className="col-12 m-1 p-0 font-weight-bold"
             onClick={(e)=>{
                 console.log("CLICKED GROUP: ", e.target.innerHTML);
                 this.props.onGroupChange(e.target.innerHTML);

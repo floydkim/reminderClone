@@ -19,7 +19,8 @@ class TodoListAdd extends React.Component {
         // 두번째 글자부터는 만든 오브젝트의 내용 수정.
         // 포커스가 blur되면 리스트 전체를 다시 렌더해서 새리스트+Add+dummy 가 되도록 한다.
         if (this.state.firstCall) {
-            console.log("firstCall flag : ", this.state.firstCall)
+            console.log("firstCall flag TRUE : ", this.state.firstCall)
+            this.setState({firstCall: false})
             this.newObj = {
                 id: this.props.nextID,
                 content: this.state.content,
@@ -28,17 +29,24 @@ class TodoListAdd extends React.Component {
                 remindAt: null,
                 createdAt: new Date()
             }
-            if (this.state.content.length !== 0) {
+            // this.setState({firstCall: false})
+            if (this.state.content.length === 1) {
                 this.props.DATA.push(this.newObj);
                 localStorage.setItem("floydReminderApp", JSON.stringify(this.props.DATA));
+                
                 // console.log(this.props.DATA)
                 // this.setState({
                 //     firstCall : false
                 // })
             }
         } else {
-            console.log("firstCall flag : ", this.state.firstCall)
-            this.props.DATA[this.props.nextID].content = this.state.content;
+            // console.log("firstCall flag : ", this.state.firstCall)
+            // this.props.DATA[this.props.nextID].content = this.state.content;
+
+            if(this.state.content.length > 1) {
+                this.newObj.content = this.state.content;
+                localStorage.setItem("floydReminderApp", JSON.stringify(this.props.DATA));
+            }
         }
     }
 
@@ -55,6 +63,9 @@ class TodoListAdd extends React.Component {
                     document.getElementById('newAddInput').focus()
                 } else if (e.keyCode === 27) { // ESC 입력시 입력한 내용 취소
                     e.target.value = "";
+                    this.setState({content: e.target.value});
+                    this.newObj.content = this.state.content;
+                    localStorage.setItem("floydReminderApp", JSON.stringify(this.props.DATA));
                 }
             }}
             onBlur={ e => {

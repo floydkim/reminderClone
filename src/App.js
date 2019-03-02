@@ -65,8 +65,12 @@ class App extends Component {
     // console.log(this.state.DATA[index])
     // var newData = this.state.DATA.splice(index, 1);
     for (var i = 0; i < this.state.DATA.length; i++) {
-      if (this.state.DATA[i].id === id) this.state.DATA.splice(i, 1);
+      if (this.state.DATA[i].id === id) {
+        console.log("removeEntry will remove id",id,"i",i)
+        this.state.DATA.splice(i, 1);
+      }
     }
+    // this.setState({nextID: })
     // this.state.DATA.splice(index, 1);
     // console.log(this.state.DATA)
     this.appRender(); // 약간 강제업데이트긴한데.. 효과가 확실하다. state를 내가 잘 못쓰는거겠지
