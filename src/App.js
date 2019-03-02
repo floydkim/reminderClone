@@ -32,15 +32,15 @@ class App extends Component {
     };
 
     this.onGroupChange = this.onGroupChange.bind(this);
-    this.onSearch = this.onSearch.bind(this);
+    this.onSearch = this.debounce(this.onSearch.bind(this), 500);
     this.appRender = this.appRender.bind(this);
     this.removeEntry = this.removeEntry.bind(this);
     this.updateDATA = this.updateDATA.bind(this);
   }
 
-  componentDidMount() {
+  // componentDidMount() {
 
-  }
+  // }
 
   componentDidUpdate() {
     console.log("UPDATE OCCURRED in App.js!!!!!!")
@@ -52,6 +52,15 @@ class App extends Component {
     this.setState({
       currentGroup: g
     })
+  }
+
+  debounce(func, wait) {
+    var timerID;
+    return function(...args) {
+      clearTimeout(timerID);
+
+      timerID = setTimeout(() => {func(...args)}, wait);
+    }
   }
 
   onSearch(q) {
@@ -106,43 +115,51 @@ class App extends Component {
       return acc;
     }, []).sort();
 
-    var listArr = this.state.DATA.reduce((acc, cur) => {
-      if (this.state.currentGroup === null) {
-        // null이면 필터하지않고 모두 모음.   for문이 괜히 돌아야 해서 비효율적이긴 하다.
-        acc.push(cur);
-      } else {
-        // null이 아니면 currentGroup으로 필터링해서 모음
-        if (cur.group === this.state.currentGroup) {
-          acc.push(cur);
-        }
-      }
-      return acc;
-    }, []).sort((a, b) => a.id - b.id); // id에 따라 정렬시킴
+    // 그룹 선택시 그룹명으로 필터된 어레이
+    var listArr = this.state.currentGroup === null ?
+                    this.state.DATA // 그룹 미선택시 전체어레이
+                    : this.state.DATA.filter(cur => { // 그룹 선택시 선택한 그룹에 속한 것들만 모음
+                      return cur.group === this.state.currentGroup;
+                    }).sort((a, b) => a.id - b.id); // id에 따라 정렬시킴
 
-    var searchArr = this.state.DATA.reduce((acc, cur) => {
-      if (this.state.query === null) {
-        // 검색하지 않았으면 모든 메모 모아둠
-        acc.push(cur);
-      } else {
-        if (cur.content.indexOf(this.state.query) > -1) {
-          acc.push(cur);
-        }
-      }
-      return acc;
-    }, []).sort((a, b) => a.id - b.id);
+    // 검색어 입력시 검색어 포함한 메모들만 모은 어레이
+    var searchArr = this.state.query === null ?
+                      this.state.DATA // 검색어 입력전에는 전체어레이
+                      : this.state.DATA.filter(cur => { // 검색어 입력시 검색어 포함한 것만 모음
+                        return cur.content.indexOf(this.state.query) > -1;
+                      }).sort((a, b) => a.id - b.id); // id에 따라 정렬시킴
 
     return (
       <div className="container border rounded m-2 p-0 h-100">
         <div className="row h-100 no-gutters">
           <div className="col-4 div-sidebar-light border-right">
-            <div className="row mb-2 no-gutters" id="div-search"><Search onSearch={this.onSearch} /></div>
-            <div className="h6 p-2" style={{cursor: "pointer", margin: 2, color: "#555", fontSize: 14}}>예정됨</div>
+            <div className="row mb-2 no-gutters" id="div-search">
+              <Search
+                onSearch={this.onSearch}
+              />
+            </div>
+            <div className="h6 p-2"
+              style={{
+                cursor: "pointer",
+                margin: 2,
+                color: "#555",
+                fontSize: 14
+                }}
+            >
+            예정됨
+            </div>
             <hr className="mt-2 mb-0 ml-2 mr-2" />
-            <div className="row h-100 no-gutters" id="div-groups"><Groups grouplist={groupArr} onGroupChange={this.onGroupChange} /></div>
+            <div className="row h-100 no-gutters" id="div-groups">
+              <Groups
+                grouplist={groupArr}
+                onGroupChange={this.onGroupChange}
+              />
+            </div>
           </div>
           <div className="col-8 p-1" id="div-outer-todolist">
             <TodoList
               DATA={this.state.query === null ? listArr : searchArr}//{this.state.DATA}
+              entireDATA={this.state.DATA}
               currentGroup={this.state.query === null ? this.state.currentGroup : `"${this.state.query}" 검색 결과`}
               modifyMemo={this.modifyMemo}
               nextID={this.state.nextID}

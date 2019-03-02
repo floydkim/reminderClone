@@ -19,24 +19,27 @@ class TodoListEntry extends React.Component {
         // DATA의 해당 필드를 직접 수정해 변경한다. 
         // console.log(this.state.content, this.props.contentObj.content)
         console.log("TodoListEntry ) didUPDATED!!!", this.props.contentObj.content)
-        localStorage.setItem("floydReminderApp", JSON.stringify(this.props.DATA));
+        localStorage.setItem("floydReminderApp", JSON.stringify(this.props.entireDATA));
     }
 
     render() {
         // if (typeof this.props.contentObj !== 'object') {
-        if (Object.keys(this.props.contentObj).length === 0) {
+        if (Object.keys(this.props.contentObj).length === 0 || this.props.contentObj.group === null) {
             // console.log("TodoListEntry ) THIS ENTRY IS EMPTY");
             return <li className="list-group-item p-1"></li>
         } else if (this.props.contentObj.content === null){
             console.log("TodoListEntry ) THIS ENTRY IS ADDER");
             this.props.contentObj.content = "";
             this.state.content = "";
-            this.props.DATA.push(this.props.contentObj);
+            // this.props.entireDATA.push(this.props.contentObj);//빈어레이만드는건 인풋 클릭했을때 해야한다..
             console.log(this.props.DATA)
             return (<li className="list-group-item p-1">
                 <input type="text" value={this.state.content} id="newAddInput"
                 onChange={ e => {
                     this.setState({content: e.target.value})
+                }}
+                onFocus={ e => {
+                    this.props.entireDATA.push(this.props.contentObj);//빈어레이만드는건 인풋 클릭했을때 해야한다..
                 }}
                 style={{
                     width: "100%",
@@ -65,7 +68,7 @@ class TodoListEntry extends React.Component {
                     // if (e.target.value === "") this.props.DATA.splice(this.props.contentObj.id-1, 1);
                     if (e.target.value === "") this.props.removeEntry(this.props.contentObj.id);
                     // 값이 비어있지 않다면, DATA에 변경이 일어남을 알려야함
-                    else this.props.updateDATA(this.props.DATA);
+                    else this.props.updateDATA(this.props.entireDATA);
                 }}
                 style={{
                     width: this.state.content.length === 0 ? "100%" : this.state.content.length*15,

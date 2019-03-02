@@ -26,6 +26,7 @@ const TodoList = (props) => (
                     key={`!M/${i}/${obj.content[0]}`}
                     removeEntry={props.removeEntry}
                     DATA={props.DATA}
+                    entireDATA={props.entireDATA}
                     updateDATA={props.updateDATA}
                     />
                 })}
@@ -44,6 +45,7 @@ const TodoList = (props) => (
                 key={`!EntryAdder`}
                 removeEntry={props.removeEntry}
                 DATA={props.DATA}
+                entireDATA={props.entireDATA}
                 currentGroup={props.currentGroup}
                 appRender={props.appRender}
                 updateDATA={props.updateDATA}
