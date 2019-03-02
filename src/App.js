@@ -38,9 +38,9 @@ class App extends Component {
     this.updateDATA = this.updateDATA.bind(this);
   }
 
-  componentDidMount() {
+  // componentDidMount() {
 
-  }
+  // }
 
   componentDidUpdate() {
     console.log("UPDATE OCCURRED in App.js!!!!!!")
@@ -159,6 +159,7 @@ class App extends Component {
           <div className="col-8 p-1" id="div-outer-todolist">
             <TodoList
               DATA={this.state.query === null ? listArr : searchArr}//{this.state.DATA}
+              entireDATA={this.state.DATA}
               currentGroup={this.state.query === null ? this.state.currentGroup : `"${this.state.query}" 검색 결과`}
               modifyMemo={this.modifyMemo}
               nextID={this.state.nextID}
