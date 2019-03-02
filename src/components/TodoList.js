@@ -1,6 +1,6 @@
 import React from 'react';
 import TodoListEntry from './TodoListEntry';
-import TodoListAdd from './TodoListAdd';
+// import TodoListAdd from './TodoListAdd';
 
 const TodoList = (props) => (
     <div>
@@ -26,6 +26,7 @@ const TodoList = (props) => (
                     key={`!M/${i}/${obj.content[0]}`}
                     removeEntry={props.removeEntry}
                     DATA={props.DATA}
+                    updateDATA={props.updateDATA}
                     />
                 })}
                 {/* 신규입력필드 */}
@@ -45,10 +46,11 @@ const TodoList = (props) => (
                 DATA={props.DATA}
                 currentGroup={props.currentGroup}
                 appRender={props.appRender}
+                updateDATA={props.updateDATA}
                 />
                 {/* 더미 필드 */
                 // [1,2,3,4,5,6,7,8,9].map((obj, i) => {
-                [{},{},{},{},{},{},{}].map((obj, i) => {
+                [{},{},{},{},{},{},{},{},{}].map((obj, i) => {
                     return <TodoListEntry
                     contentObj={obj}
                     id={"dummy"+i}

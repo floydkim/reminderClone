@@ -35,6 +35,7 @@ class App extends Component {
     this.onSearch = this.onSearch.bind(this);
     this.appRender = this.appRender.bind(this);
     this.removeEntry = this.removeEntry.bind(this);
+    this.updateDATA = this.updateDATA.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +58,18 @@ class App extends Component {
     console.log("onSearch CALLEDD!!! : ", q)
     this.setState({ // setState시 에러발생. 보류.
       query: q
+    })
+  }
+
+  updateDATA(data) {
+    var largestID = 0;
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].id > largestID) largestID = data[i].id;
+    }
+    
+    this.setState({
+      DATA: data,
+      nextID: largestID + 1
     })
   }
 
@@ -135,6 +148,7 @@ class App extends Component {
               nextID={this.state.nextID}
               appRender={this.appRender}
               removeEntry={this.removeEntry}
+              updateDATA={this.updateDATA}
             />
           </div>
         </div>

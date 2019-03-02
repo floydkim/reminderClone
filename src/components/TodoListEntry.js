@@ -31,11 +31,10 @@ class TodoListEntry extends React.Component {
             console.log("TodoListEntry ) THIS ENTRY IS ADDER");
             this.props.contentObj.content = "";
             this.state.content = "";
-            // this.setState({content: ""})
             this.props.DATA.push(this.props.contentObj);
             console.log(this.props.DATA)
             return (<li className="list-group-item p-1">
-                <input type="text" value={this.state.content}
+                <input type="text" value={this.state.content} id="newAddInput"
                 onChange={ e => {
                     this.setState({content: e.target.value})
                 }}
@@ -66,6 +65,7 @@ class TodoListEntry extends React.Component {
                     // if (e.target.value === "") this.props.DATA.splice(this.props.contentObj.id-1, 1);
                     if (e.target.value === "") this.props.removeEntry(this.props.contentObj.id);
                     // 값이 비어있지 않다면, DATA에 변경이 일어남을 알려야함
+                    else this.props.updateDATA(this.props.DATA);
                 }}
                 style={{
                     width: this.state.content.length === 0 ? "100%" : this.state.content.length*15,
