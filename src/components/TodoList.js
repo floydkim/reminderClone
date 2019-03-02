@@ -31,8 +31,15 @@ const TodoList = (props) => (
                 {/* 신규입력필드 */}
                 {/* <TodoListAdd */}
                 <TodoListEntry
-                contentObj={{content: ""}}
-                nextID={props.nextID}
+                contentObj={{
+                    id: props.nextID,
+                    content: null,
+                    group: props.currentGroup,
+                    isDone: false,
+                    remindAt: null,
+                    createdAt: new Date()
+                }}
+                // nextID={props.nextID}
                 key={`!EntryAdder`}
                 removeEntry={props.removeEntry}
                 DATA={props.DATA}

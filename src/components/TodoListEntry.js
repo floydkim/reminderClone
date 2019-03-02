@@ -6,6 +6,7 @@ class TodoListEntry extends React.Component {
         super(props);
 
         this.state = {
+            currentObj: props.contentObj,
             content: props.contentObj.content
         }
 
@@ -13,6 +14,7 @@ class TodoListEntry extends React.Component {
 
     componentDidUpdate() {
         this.props.contentObj.content = this.state.content;
+        // this.state.currentObj.content = this.state.content;
         // input박스의 onChange에 의해 state.content가 변경되고, 이 함수가 실행된다.
         // DATA의 해당 필드를 직접 수정해 변경한다. 
         // console.log(this.state.content, this.props.contentObj.content)
@@ -25,24 +27,20 @@ class TodoListEntry extends React.Component {
         if (Object.keys(this.props.contentObj).length === 0) {
             // console.log("TodoListEntry ) THIS ENTRY IS EMPTY");
             return <li className="list-group-item p-1"></li>
-        } else if (this.props.contentObj.content.length === 0){
+        } else if (this.props.contentObj.content === null){
             console.log("TodoListEntry ) THIS ENTRY IS ADDER");
-            var newObj = {
-                id: this.props.nextID,
-                content: this.state.content,
-                group: this.props.currentGroup,
-                isDone: false,
-                remindAt: null,
-                createdAt: new Date()
-            }
-            this.props.DATA.push(newObj);
+            this.props.contentObj.content = "";
+            this.state.content = "";
+            // this.setState({content: ""})
+            this.props.DATA.push(this.props.contentObj);
+            console.log(this.props.DATA)
             return (<li className="list-group-item p-1">
                 <input type="text" value={this.state.content}
                 onChange={ e => {
                     this.setState({content: e.target.value})
                 }}
                 style={{
-                    width: this.state.content.length === 0 ? "100%" : this.state.content.length*15,
+                    width: "100%",
                     maxWidth: "100%"
                 }}
                 ></input>
@@ -67,6 +65,7 @@ class TodoListEntry extends React.Component {
                 onBlur={e => {
                     // if (e.target.value === "") this.props.DATA.splice(this.props.contentObj.id-1, 1);
                     if (e.target.value === "") this.props.removeEntry(this.props.contentObj.id);
+                    // 값이 비어있지 않다면, DATA에 변경이 일어남을 알려야함
                 }}
                 style={{
                     width: this.state.content.length === 0 ? "100%" : this.state.content.length*15,
