@@ -133,10 +133,28 @@ class App extends Component {
       <div className="container border rounded m-2 p-0 h-100">
         <div className="row h-100 no-gutters">
           <div className="col-4 div-sidebar-light border-right">
-            <div className="row mb-2 no-gutters" id="div-search"><Search onSearch={this.onSearch} /></div>
-            <div className="h6 p-2" style={{cursor: "pointer", margin: 2, color: "#555", fontSize: 14}}>예정됨</div>
+            <div className="row mb-2 no-gutters" id="div-search">
+              <Search
+                onSearch={this.onSearch}
+              />
+            </div>
+            <div className="h6 p-2"
+              style={{
+                cursor: "pointer",
+                margin: 2,
+                color: "#555",
+                fontSize: 14
+                }}
+            >
+            예정됨
+            </div>
             <hr className="mt-2 mb-0 ml-2 mr-2" />
-            <div className="row h-100 no-gutters" id="div-groups"><Groups grouplist={groupArr} onGroupChange={this.onGroupChange} /></div>
+            <div className="row h-100 no-gutters" id="div-groups">
+              <Groups
+                grouplist={groupArr}
+                onGroupChange={this.onGroupChange}
+              />
+            </div>
           </div>
           <div className="col-8 p-1" id="div-outer-todolist">
             <TodoList
