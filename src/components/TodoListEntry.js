@@ -26,16 +26,6 @@ class TodoListEntry extends React.Component {
             return <li className="list-group-item p-1"></li>
         } else {
             return (<li className="list-group-item p-1">
-            {/* value는 props로 App에서부터 받아오고,
-            값 변경은 콜백이 App.setState해서 현재 번경 일어난 오브젝트의 내용 바꾸는게 좋겠다.
-            근데 정확히 그 오브젝트를 가리키는게 어렵다. */}
-
-            {/* 일단은 아래처럼 했을때 TodoListEntry는 자신의 변화를 알아차린다.
-            이게 App까지 타고올라가지 못해서 문제지..
-            어떻게하면 이벤트가 발생한 곳의 변화를 알릴 수 있을까?
-            onClick시 App에서 내려온 핸들러함수로, 선택된 오브젝트 주소를 App의 state 혹은 핸들러의 변수로 기억한다.
-            아니 이렇게 해도 DATA의 내용 중 어떤 오브젝트의 .content가 바뀌었는지는 알아차릴 수 없다.
-            DATA의 변화를 알아채려면 전체를 재할당해서 통으로 변화시켜야 하는걸까? */}
                 <input type="text" value={this.state.content}
                 onChange={ e => {
                     this.setState({content: e.target.value}) // 현재 컴포넌트의 상태만 변경해서 value만 새로 렌더된다
