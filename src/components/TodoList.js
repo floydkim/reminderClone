@@ -16,7 +16,7 @@ const TodoList = (props) => (
                 </div>
             </div>
         </div>
-        <div id="div-todolist">
+        <div id="div-todolist" style={{height:300}}>
             <ul className="list-group list-group-flush" id="ul-todolist">
                 {/* 기존 데이터 필드 */
                 props.DATA.map((obj, i) => {

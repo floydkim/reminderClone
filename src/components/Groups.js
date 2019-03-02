@@ -8,7 +8,7 @@ class Groups extends React.Component {
 
     render() {
         return (
-            <div className="row p-2 no-gutters w-100" style={{height:275}}>
+        <div className="row p-2 no-gutters w-100 align-content-between" style={{height:275}}>
                 <div className="col-12">
                     {this.props.grouplist.map((cur, i) => {
                         return (
@@ -20,7 +20,7 @@ class Groups extends React.Component {
                         );
                     })}
                 </div>
-                <div className="col-12 align-self-end">
+                <div className="col-12">
                     <div className="row no-gutters ml-1"
                     style={{fontSize:12, fontWeight:"bold"}}>+ 그룹추가</div>
                 </div>

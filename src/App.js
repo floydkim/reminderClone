@@ -49,7 +49,7 @@ class App extends Component {
 
   onGroupChange(g) {
     console.log("onGroupChange CALLEDD!!! : ", g)
-    this.setState({ // setState시 에러발생. 보류.
+    this.setState({
       currentGroup: g
     })
   }
@@ -132,13 +132,13 @@ class App extends Component {
     }, []).sort((a, b) => a.id - b.id);
 
     return (
-      <div className="container border rounded m-2">
-        <div className="row">
+      <div className="container border rounded m-2 p-0 h-100">
+        <div className="row h-100 no-gutters">
           <div className="col-4 div-sidebar-light border-right">
-            <div className="row mb-2" id="div-search"><Search onSearch={this.onSearch} /></div>
-            <div className="h6 " style={{cursor: "pointer", margin: 2, color: "#555", fontSize: 14}}>예정됨</div>
-            <hr className="m-0 mt-2" />
-            <div className="row" id="div-groups"><Groups grouplist={groupArr} onGroupChange={this.onGroupChange} /></div>
+            <div className="row mb-2 no-gutters" id="div-search"><Search onSearch={this.onSearch} /></div>
+            <div className="h6 p-2" style={{cursor: "pointer", margin: 2, color: "#555", fontSize: 14}}>예정됨</div>
+            <hr className="mt-2 mb-0 ml-2 mr-2" />
+            <div className="row h-100 no-gutters" id="div-groups"><Groups grouplist={groupArr} onGroupChange={this.onGroupChange} /></div>
           </div>
           <div className="col-8 p-1" id="div-outer-todolist">
             <TodoList
