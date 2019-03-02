@@ -24,7 +24,7 @@ class TodoListEntry extends React.Component {
 
     render() {
         // if (typeof this.props.contentObj !== 'object') {
-        if (Object.keys(this.props.contentObj).length === 0) {
+        if (Object.keys(this.props.contentObj).length === 0 || this.props.contentObj.group === null) {
             // console.log("TodoListEntry ) THIS ENTRY IS EMPTY");
             return <li className="list-group-item p-1"></li>
         } else if (this.props.contentObj.content === null){
