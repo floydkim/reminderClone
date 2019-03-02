@@ -18,11 +18,16 @@ class App extends Component {
       localStorage.setItem("floydReminderApp", JSON.stringify(data));
     }
 
+    var largestID = 0;
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].id > largestID) largestID = data[i].id;
+    }
+
     this.state = {
       DATA: data,
       currentGroup: null,
       update: false,
-      nextID: data.length,
+      nextID: largestID + 1,
       query: null
     };
 
@@ -31,15 +36,6 @@ class App extends Component {
     this.appRender = this.appRender.bind(this);
     this.removeEntry = this.removeEntry.bind(this);
   }
-
-  // modifyMemo(targetObj, content) { // 이거 필요없다. 핸들러 안부르고 바로 주소에 꽂았다.
-  //   // console.log("modifyMemo!!!", targetObj, targetObj.id)
-  //   targetObj.content = content; // 인자로 들어온 주소targetObj 의 content 속성을 두번째 인자로 재할당한다
-  //   this.setState({ // App.js에서 업데이트를 감지하도록 
-  //     // DATA: data // 이러면 전체 어레이가 재할당되니까
-  //     update: !this.state.update // 더미값을 변경해준다.. 근데 DATA의 변경을 감지할수 없게 되지 않나?
-  //   });
-  // }
 
   componentDidMount() {
 
@@ -82,7 +78,7 @@ class App extends Component {
   appRender() {
     this.setState({
       update: !this.state.update,
-      nextID: this.state.DATA.length
+      nextID: this.state.nextID + 1
     })
     localStorage.setItem("floydReminderApp", JSON.stringify(this.state.DATA));
   }

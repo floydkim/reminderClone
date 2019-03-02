@@ -48,7 +48,7 @@ class TodoListAdd extends React.Component {
             onChange={ e => {
                 console.log("onChange at TodoListAdd input tag : ", e.target.value)
                 this.setState({content: e.target.value}) // 현재 컴포넌트의 상태만 변경해서 value만 새로 렌더된다
-                }}
+            }}
             onKeyDown={ e => {
                 if (e.keyCode === 13) {
                     e.target.blur(); // 엔터 입력시 포커스 빼줌
