@@ -29,15 +29,19 @@ const TodoList = (props) => (
                     />
                 })}
                 {/* 신규입력필드 */}
-                <TodoListAdd
+                {/* <TodoListAdd */}
+                <TodoListEntry
+                contentObj={{content: ""}}
                 nextID={props.nextID}
-                currentGroup={props.currentGroup}
+                key={`!EntryAdder`}
+                removeEntry={props.removeEntry}
                 DATA={props.DATA}
+                currentGroup={props.currentGroup}
                 appRender={props.appRender}
                 />
                 {/* 더미 필드 */
                 // [1,2,3,4,5,6,7,8,9].map((obj, i) => {
-                [{},{},{},{},{},{}].map((obj, i) => {
+                [{},{},{},{},{},{},{}].map((obj, i) => {
                     return <TodoListEntry
                     contentObj={obj}
                     id={"dummy"+i}
