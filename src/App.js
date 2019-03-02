@@ -58,7 +58,7 @@ class App extends Component {
   }
 
   onSearch(q) {
-    console.log("onGroupChange CALLEDD!!! : ", q)
+    console.log("onSearch CALLEDD!!! : ", q)
     this.setState({ // setState시 에러발생. 보류.
       query: q
     })
@@ -95,18 +95,28 @@ class App extends Component {
 
     var listArr = this.state.DATA.reduce((acc, cur) => {
       if (this.state.currentGroup === null) {
-        // null이면 필터하지않고 모두 모음
+        // null이면 필터하지않고 모두 모음.   for문이 괜히 돌아야 해서 비효율적이긴 하다.
         acc.push(cur);
-        // return acc;
       } else {
         // null이 아니면 currentGroup으로 필터링해서 모음
         if (cur.group === this.state.currentGroup) {
           acc.push(cur);
-          // return acc;
         }
       }
       return acc;
     }, []).sort((a, b) => a.id - b.id); // id에 따라 정렬시킴
+
+    var searchArr = this.state.DATA.reduce((acc, cur) => {
+      if (this.state.query === null) {
+        // 검색하지 않았으면 모든 메모 모아둠
+        acc.push(cur);
+      } else {
+        if (cur.content.indexOf(this.state.query) > -1) {
+          acc.push(cur);
+        }
+      }
+      return acc;
+    }, []).sort((a, b) => a.id - b.id);
 
     return (
       <div className="container border rounded m-2">
@@ -119,8 +129,8 @@ class App extends Component {
           </div>
           <div className="col-8 p-1" id="div-outer-todolist">
             <TodoList
-              DATA={listArr}//{this.state.DATA}
-              currentGroup={this.state.currentGroup}
+              DATA={this.state.query === null ? listArr : searchArr}//{this.state.DATA}
+              currentGroup={this.state.query === null ? this.state.currentGroup : `"${this.state.query}" 검색 결과`}
               modifyMemo={this.modifyMemo}
               nextID={this.state.nextID}
               appRender={this.appRender}

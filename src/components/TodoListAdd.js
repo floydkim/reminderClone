@@ -3,7 +3,7 @@ import React from 'react';
 class TodoListAdd extends React.Component {
     constructor(props) {
         super(props);
-        console.log("PROPS in TodoListAdd : ",props)
+        // console.log("PROPS in TodoListAdd : ",props)
         this.state = {
             content: "",
             firstCall: true
@@ -32,9 +32,9 @@ class TodoListAdd extends React.Component {
                 this.props.DATA.push(this.newObj);
                 localStorage.setItem("floydReminderApp", JSON.stringify(this.props.DATA));
                 // console.log(this.props.DATA)
-                this.setState({
-                    firstCall : false
-                })
+                // this.setState({
+                //     firstCall : false
+                // })
             }
         } else {
             console.log("firstCall flag : ", this.state.firstCall)
@@ -46,16 +46,19 @@ class TodoListAdd extends React.Component {
         return (<li className="list-group-item p-1">
             <input type="text" id="newAddInput"
             onChange={ e => {
+                console.log("onChange at TodoListAdd input tag : ", e.target.value)
                 this.setState({content: e.target.value}) // 현재 컴포넌트의 상태만 변경해서 value만 새로 렌더된다
                 }}
             onKeyDown={ e => {
                 if (e.keyCode === 13) {
                     e.target.blur(); // 엔터 입력시 포커스 빼줌
                     document.getElementById('newAddInput').focus()
+                } else if (e.keyCode === 27) { // ESC 입력시 입력한 내용 취소
+                    e.target.value = "";
                 }
             }}
-            onBlur={(e) => {
-                this.setState({content: this.state.content, firstCall: true});
+            onBlur={ e => {
+                this.setState({content: e.target.value, firstCall: true});
                 this.setState({content: ""});
                 e.target.value = "";
                 this.props.appRender();
